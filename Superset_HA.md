@@ -17,8 +17,7 @@ Componentes:
 
 ## Superset 
 
-[Versión inicial 0.26.3](http://host.t2client.site/static/assets/version_info.json) 
-[Actualizada a versión 0.27](http://host.t2client.site/static/assets/version_info.json) 
+[Versión](http://host.t2client.site/static/assets/version_info.json) 
 
 ## Nginx
 
@@ -45,12 +44,7 @@ Editar el archivo `nginx.conf` y modificar la sección `server` dentro de `http`
 
 ## Gunicorn 
 
-Es un Web [Server Gateway Interface HTTP](http://docs.gunicorn.org/en/stable/index.html), sirve contenido mediante la administración de múltiples peticiones simultáneas.
-
-
-### Instalación
-
-`$ pip install gunicorn`
+Es un Web [Server Gateway Interface HTTP](http://docs.gunicorn.org/en/stable/index.html), sirve contenido mediante la administración de múltiples peticiones simultáneas utilizando workers.
 
 #### Workers
 
@@ -67,16 +61,15 @@ Ejemplo para un sistema con 2 CPU's
 
 ## Redis server
 
-La función principal de Redis en esta aquitectura es la de disponer un sistema de caché back-end.
+La función principal de Redis es la de disponer un sistema de caché.
 
-#### Redis como cache
+#### Redis como caché
 
 * [web config. oficial](https://redis.io/topics/config)
 * [algoritmo utilizado](https://redis.io/topics/lru-cache)
 
 ### Instalar redis
 ```sh
-host:/usr/lib/python3.6 # https_proxy=https://xxx.t2client.org:9090
 host:/usr/lib/python3.6 # pip install redis
 Collecting redis
   Downloading https://files.pythonhosted.org/packages/3b/f6/7a76333cf0b9251ecf49efff635015171843d9b977e4ffcf59f9c4428052/redis-2.10.6-py2.py3-none-any.whl (64kB)
@@ -97,10 +90,9 @@ Al utilizar un sistema de caché, Celery ofrece respuestas más rápidas compara
 
 * [Celery & Redis como cola de mensajes](http://docs.celeryproject.org/en/v2.3.3/tutorials/otherqueues.html)
 
+# Conectar los sistemas
 
-# Configurar front y gateway back
-
-La primera aproximación es establecer la comunicación entre las capas frontend y backend.
+La primera aproximación es establecer la comunicación entre los diferentes sistemas.
 
 ### Nginx 
 
@@ -121,15 +113,13 @@ superset@host:~> gunicorn -w 5 --timeout 120 -b 0.0.0.0:8000 superset:app
 [2018-08-22 11:52:33 +0200] [27033] [INFO] Booting worker with pid: 27033
 [2018-08-22 11:52:33 +0200] [27036] [INFO] Booting worker with pid: 27036
 ```
-### Comprobar que responden los sistemas
+### Comprobar Ngnix & Gunicorn
 
 ``` 
-http://http://host.t2client.site/
+http://http://host.t2client.com/
 ```
-![host.t2client.site](/uploads/99a08bb9d41f03bcbd3123bf68ee1429/host.t2client.site.png)
 
-
-# Configurar Redis como caché
+# Configurar Redis
 
 Para disponer un sistema de caché con Redis se han añadir un par de parámetros al archivo de configuración:
 
@@ -158,7 +148,7 @@ superset@host:/etc/nginx> redis-cli
 PONG
 127.0.0.1:6379>
 ```
-# Superset, Celery y Redis
+# Superset, Celery & Redis
 
 Para disponer de las capacidades que da Redis como caché y de gunicorn configuramos superset, hemos comprobado que todos los servicios están activos, dispondremos de un sistema que sea escalable y distribuido.
 
@@ -201,7 +191,6 @@ RESULTS_BACKEND = RedisCache(
     key_prefix='superset_results'
 )
 ```
-Se puede comprobar la doble funcion de Redis, broker y caché y el paso de mensajes desde Celery a Redis.
 
 # Puesta en marcha de la arquitectura
 
@@ -225,9 +214,3 @@ superset@host:~> gunicorn -w 5 -k gevent --timeout 120 -b 0.0.0.0:8000 superset:
 [2018-08-22 12:41:23 +0200] [27188] [INFO] Booting worker with pid: 27188
 [2018-08-22 12:41:23 +0200] [27189] [INFO] Booting worker with pid: 27189
 ```
-
-# Comprobando el sistema de Cache
-
-Realizamos varias consultas desde Superset y comprobamos
-
-![hostCache](/uploads/f058725e2d456fa500846868d2e488ae/hostCache.png)
