@@ -98,7 +98,10 @@ pip3 install ibm_db
 ```
 pip3 install ibm_db_sa
 ```
-
+#### Gevent
+```
+pip3 install gevent
+```
 ## Superset
 Instalar la última versión liberada
 ```
@@ -245,180 +248,13 @@ gunicorn -b 0.0.0.0:8088 superset:app
 superset runserver -d
 ```
 
-# Redis
-
-## Instalación
-
-seguimos link oficial --> https://software.opensuse.org/download.html?project=server:database&package=redis
-
-```
-zypper install redis
-Loading repository data...
-Reading installed packages...
-Resolving package dependencies...
-
-The following NEW package is going to be installed:
-  redis
-
-The following package has no support information from its vendor:
-  redis
-
-1 new package to install.
-Overall download size: 771.6 KiB. Already cached: 0 B. After the operation, additional 2.5 MiB will be used.
-Continue? [y/n/...? shows all options] (y):
-```
-Para porbar redis podemos ejecutar directamente en la consola:
-
-```
-redis-server
-```
-El sistema muestra varios warnings y sus soluciones
-
-```
-12777:M 27 Feb 13:54:21.685 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-```
-```
- WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
-```
-
-### Python
-Instalamos las librerias redis para python
-```
-pip3 install redis
-```
-
-### redis.conf
-
-```
-cp default.conf.example redis.conf
-vim redis.conf
-```
-
-Indicamos un limite de memoria máxima para que redis comience a eliminar claves y aplicamos una politica LRU
-
-```
-maxmemory 128mb
-maxmemory-policy allkeys-lru
-```
-nota: se deberá monitorizar el sistema para ajustarlo, por ejemplo ampliar la memoria a utilizar o cambiar el algoritmo a utilizar.
-
-### Servicio Redis
-Añadir Redis como servicio del sistema
-
-```
-systemctl enable redis.target
-systemctl start redis.target
-```
 
 
-### Redis Cli
-`redis-cli` is the Redis command line interface, a simple program that allows to send commands to Redis, and read the replies sent by the server, directly from the terminal.
-
-```
-> redis-cli
-127.0.0.1:6379> ping
-PONG
-127.0.0.1:6379>
-```
-
-
-# Gunicorn
-Gunicorn se instala con superset. 
-
-### Libreria `gevent`
-
-```
-pip3 install gevent
-```
-
-### Configuración
-Crear directorio `/etc/gunicorn/gunicorn.conf`
-Crear directorios de log `/var/log/gunicorn/access.log` y `/var/log/gunicorn/error.log`
-
-Hacer propietario al usuario `superset` de `access.log` y `error.log`
-
-### gunicorn.conf
-```
-import multiprocessing
-
-# Server socket
-
-#bind = '0.0.0.0:8000'
-bind = 'unix:/run/gunicorn/socket'
-backlog = 2048
-
-# Worker processes
-
-#workers = 5
-workers = multiprocessing.cpu_count() * 2 + 1
-worker_class = 'gevent'
-worker_connections = 2048
-timeout = 90
-keepalive = 2
-
-#   spew - Install a trace function that spews every line of Python
-
-spew = False
-
-# Server mechanics
-
-daemon = False
-pidfile = '/run/gunicorn/pid'
-umask = 0
-user = None
-group = None
-tmp_upload_dir = None
-
-#   Logging
-
-errorlog = '/var/log/gunicorn/error.log'
-loglevel = 'debug'
-accesslog = '/var/log/gunicorn/access.log'
-access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
-
-# Processing Naming
-
-proc_name = None
-
-# Server hooks
-
-def post_fork(server, worker):
-    server.log.info("Worker spawned (pid: %s)", worker.pid)
-
-def pre_fork(server, worker):
-    pass
-
-def pre_exec(server):
-    server.log.info("Forked child, re-executing.")
-
-def when_ready(server):
-    server.log.info("Server is ready. Spawning workers")
-
-def worker_int(worker):
-    worker.log.info("worker received INT or QUIT signal")
-
-    ## get traceback info
-    import threading, sys, traceback
-    id2name = {th.ident: th.name for th in threading.enumerate()}
-    code = []
-    for threadId, stack in sys._current_frames().items():
-        code.append("\n# Thread: %s(%d)" % (id2name.get(threadId,""),
-            threadId))
-        for filename, lineno, name, line in traceback.extract_stack(stack):
-            code.append('File: "%s", line %d, in %s' % (filename,
-                lineno, name))
-            if line:
-                code.append("  %s" % (line.strip()))
-    worker.log.debug("\n".join(code))
-
-def worker_abort(worker):
-    worker.log.info("worker received SIGABRT signal")
-```
 
 # Configuración Superset
 
 ### Mover directorio
-Movemos el directorio `/superset`a `/opt` o a cualquier otro directorio con mayor tamaño. Crearemos un enlace simbolico a la nueva ubicación.
+Movemos el directorio `/superset`a `/opt` o a cualquier otro punto de montaje del sistema, para ello, creamos un enlace simbolico.
 
 ```
 mv /usr/lib/python3.6/site-packages/superset /opt/

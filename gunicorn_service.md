@@ -22,8 +22,8 @@ Crear estructura de logs en /var/log/gunicorn y dar permisos necesarios.
 
 ### Creamos el servicio
 
-`superset@asidvizint:~> cd /etc/systemd/system/`
-`superset@asidvizint:/etc/systemd/system> sudo touch gunicorn.service`
+`superset@host:~> cd /etc/systemd/system/`
+`superset@host:/etc/systemd/system> sudo touch gunicorn.service`
 
 ```script
 Description=Gunicorn daemon para servir Superset
@@ -51,7 +51,7 @@ WantedBy=multi-user.target
 `systemctl start gunicorn.service`
 
 ```
-superset@asidvizint:/etc/systemd/system> systemctl start gunicorn.service
+superset@host:/etc/systemd/system> systemctl start gunicorn.service
 ==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ====
 Se requiere autenticación para iniciar 'gunicorn.service'.
 Authenticating as: root
@@ -72,7 +72,7 @@ Gunicorn debe crear la URL completa para cualquier envio o redirección. Debido 
 Nginx se usa como puerta de enlace, por lo que es responsable de cambiar todas las URL de redirección enviadas para que coincidan con el nombre de dominio en el que nginx está sirviendo el sitio.
 
 ```nginx
-upstream asidviz {
+upstream host {
     # Path to Unicorn SOCK file, as defined previously
     server unix:/run/gunicorn/socket fail_timeout=0;
 }
@@ -83,7 +83,7 @@ server {
         
         location / {
                 proxy_set_header Host $http_host;
-                proxy_pass http://asidviz;
+                proxy_pass http://host;
         }
 }
 ```

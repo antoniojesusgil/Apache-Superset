@@ -17,8 +17,8 @@ Componentes:
 
 ## Superset 
 
-[Versión inicial 0.26.3](http://asidvizint.t2client.site/static/assets/version_info.json) 
-[Actualizada a versión 0.27](http://asidvizint.t2client.site/static/assets/version_info.json) 
+[Versión inicial 0.26.3](http://host.t2client.site/static/assets/version_info.json) 
+[Actualizada a versión 0.27](http://host.t2client.site/static/assets/version_info.json) 
 
 ## Nginx
 
@@ -76,8 +76,8 @@ La función principal de Redis en esta aquitectura es la de disponer un sistema 
 
 ### Instalar redis
 ```sh
-asidvizint:/usr/lib/python3.6 # https_proxy=https://xxx.t2client.org:9090
-asidvizint:/usr/lib/python3.6 # pip install redis
+host:/usr/lib/python3.6 # https_proxy=https://xxx.t2client.org:9090
+host:/usr/lib/python3.6 # pip install redis
 Collecting redis
   Downloading https://files.pythonhosted.org/packages/3b/f6/7a76333cf0b9251ecf49efff635015171843d9b977e4ffcf59f9c4428052/redis-2.10.6-py2.py3-none-any.whl (64kB)
     100% |████████████████████████████████| 71kB 2.3MB/s
@@ -111,7 +111,7 @@ Partimos de nginx configurado como proxy pass apuntando a la dirección y puerto
 Servir gunicorn con los parámetros: `--workers` Número de procesos a ejecutar, `--timeout` En segundos `--bind` Socket de servicio a enlazar.  
 
 ```bash
-superset@asidvizint:~> gunicorn -w 5 --timeout 120 -b 0.0.0.0:8000 superset:app
+superset@host:~> gunicorn -w 5 --timeout 120 -b 0.0.0.0:8000 superset:app
 [2018-08-22 11:52:33 +0200] [27026] [INFO] Starting gunicorn 19.9.0
 [2018-08-22 11:52:33 +0200] [27026] [INFO] Listening at: http://0.0.0.0:8000 (27026)
 [2018-08-22 11:52:33 +0200] [27026] [INFO] Using worker: sync
@@ -124,9 +124,9 @@ superset@asidvizint:~> gunicorn -w 5 --timeout 120 -b 0.0.0.0:8000 superset:app
 ### Comprobar que responden los sistemas
 
 ``` 
-http://http://asidvizint.t2client.site/
+http://http://host.t2client.site/
 ```
-![asidvizint.t2client.site](/uploads/99a08bb9d41f03bcbd3123bf68ee1429/asidvizint.t2client.site.png)
+![host.t2client.site](/uploads/99a08bb9d41f03bcbd3123bf68ee1429/host.t2client.site.png)
 
 
 # Configurar Redis como caché
@@ -153,7 +153,7 @@ Iniciar el servicio Redis
 `redis-cli` is the Redis command line interface, a simple program that allows to send commands to Redis, and read the replies sent by the server, directly from the terminal.
 
 ```bash
-superset@asidvizint:/etc/nginx> redis-cli
+superset@host:/etc/nginx> redis-cli
 127.0.0.1:6379> ping
 PONG
 127.0.0.1:6379>
@@ -215,7 +215,7 @@ El orden de inicio de los distintos sistemas que forman la arquitectura puede se
 
 Por tanto, queda iniciar Gunicorn
 ```bash
-superset@asidvizint:~> gunicorn -w 5 -k gevent --timeout 120 -b 0.0.0.0:8000 superset:app
+superset@host:~> gunicorn -w 5 -k gevent --timeout 120 -b 0.0.0.0:8000 superset:app
 [2018-08-22 12:41:23 +0200] [27180] [INFO] Starting gunicorn 19.9.0
 [2018-08-22 12:41:23 +0200] [27180] [INFO] Listening at: http://0.0.0.0:8000 (27180)
 [2018-08-22 12:41:23 +0200] [27180] [INFO] Using worker: gevent
@@ -230,4 +230,4 @@ superset@asidvizint:~> gunicorn -w 5 -k gevent --timeout 120 -b 0.0.0.0:8000 sup
 
 Realizamos varias consultas desde Superset y comprobamos
 
-![asidvizintCache](/uploads/f058725e2d456fa500846868d2e488ae/asidvizintCache.png)
+![hostCache](/uploads/f058725e2d456fa500846868d2e488ae/hostCache.png)
