@@ -100,6 +100,11 @@ pip3 install ibm_db_sa
 ```
 
 ## Superset
+Instalar la última versión liberada
+```
+pip3 install superset
+```
+Instalar una versión concreta
 ```
 pip3 install superset==0.27.0
 Collecting superset==0.27.0
