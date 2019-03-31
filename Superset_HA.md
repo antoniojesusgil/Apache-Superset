@@ -160,7 +160,7 @@ PONG
 ```
 # Superset, Celery y Redis
 
-Todos los servicios están activos, vamos a configurar Superset para disponer de un sistema que sea escalable y distribuido.
+Para disponer de las capacidades que da Redis como caché y de gunicorn configuramos superset, hemos comprobado que todos los servicios están activos, dispondremos de un sistema que sea escalable y distribuido.
 
 Editamos el archivo principal de configuación de Superset, `config.py`
 
