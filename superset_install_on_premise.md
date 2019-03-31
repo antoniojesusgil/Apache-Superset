@@ -86,7 +86,7 @@ Installing collected packages: python-ldap
   Running setup.py install for python-ldap ... done
 Successfully installed python-ldap-3.1.0
 ```
-### Drivers para conectar a BBDD
+### Drivers para databases
 #### Mysql
 ```
 pip3 install mysqlclient
@@ -113,7 +113,7 @@ Collecting superset==0.27.0
 
 `Command "python setup.py egg_info" failed with error code 1 in /tmp/pydruid/`
 
-Este error viene dado por la conexion a internet, si se utiliza proxy `amcdocker` no funciona, es necesario que salga por proxy `pxcost`
+Este error viene dado por la utilización de un proxy sin acceso a los repositiorios python.
 
 ### Incompatibilidades
 ```
@@ -142,15 +142,14 @@ MariaDB [(none)]> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
 ```
 #### config.py
-Editamos el archivo de configuración y cambiamos la bbdd. Superset se apoya en SqlAlchemy
-
+Editamos el archivo de configuración y cambiamos la bbdd. Superset utiliza SqlAlchemy
 ```
 SQLALCHEMY_DATABASE_URI = 'mysql://superser:xxx@localhost/superset'
 ```
 #### Iniciar Superset
 El sistema se apoya en Flask y en el framework Flask-Appbuilder
 ```
- fabmanager create-admin --app superset
+fabmanager create-admin --app superset
 Username [admin]: t2client
 User first name [admin]: t2client
 User last name [user]: admin-local
