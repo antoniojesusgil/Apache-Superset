@@ -247,13 +247,3 @@ gunicorn -b 0.0.0.0:8088 superset:app
 ```
 superset runserver -d
 ```
-
-# Configuración Superset
-
-### Mover directorio
-Movemos el directorio `/superset`a `/opt` o a cualquier otro punto de montaje del sistema, para ello, creamos un enlace simbolico.
-
-```
-mv /usr/lib/python3.6/site-packages/superset /opt/
-ln -s /opt/superset /usr/lib/python3.6/site-packages/superset 
-```
