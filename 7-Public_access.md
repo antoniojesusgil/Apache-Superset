@@ -8,12 +8,11 @@ By setting `PUBLIC_ROLE_LIKE_GAMMA = True` in your superset_config.py, you grant
 # Gestión del rol Gamma para acceso a datasources
 Here’s how to provide users access to only specific datasets. First make sure the users with limited access have [only] the Gamma role assigned to them. Second, create a new role (`Menu -> Security -> List Roles`) and click the `+` sign.
 
-## Rol ASID
 Veamos un ejemplo práctico de como crear un rol con acceso anónimo y acceso a datasources / dashboards.
 
 Partimos de de tener activo `PUBLIC_ROLE_LIKE_GAMMA = True` en el archivo `config.py` y de haber comprobado el acceso anónimo a un dashboard en modo `standalone` (necesario aññadir el datasource al rol public)
 
-Clonamos el rol `Public` o `Gamma` y comenzamos a quitar permisos sobre el nuevo rol `ASID`.
+Clonamos el rol `Public` o `Gamma` y comenzamos a quitar permisos sobre el nuevo rol `miRol`.
 
 ##### Nota: Existen dos tipos de permisos, sobre las vistas y sobre los base.
 
@@ -29,6 +28,5 @@ De todos los permisos resultantes en el nuevo rol los más importantes son:
 `can save dash on Superset` -> Se muestra el dashboard en modo raw sin css ni estilos
 
 `can csrf token on Superset` -> Gestión del token
-
 
 Y por supuesto, el rol debe tener acceso al datasource sobre el que se construye el dashboard.

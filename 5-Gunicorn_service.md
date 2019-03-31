@@ -1,7 +1,5 @@
 # Gunicorn como servicio
 
-## gunicorn.conf
-
 [Doc oficial](http://docs.gunicorn.org/en/stable/configure.html)
 
 [Settings](http://docs.gunicorn.org/en/stable/settings.html#config-file)
@@ -19,7 +17,7 @@ Crear estructura de logs en /var/log/gunicorn y dar permisos necesarios.
 ## Archivo systemD
 [Información sobre systemd](https://www.freedesktop.org/wiki/Software/systemd/)
 
-### Creamos el servicio
+### Crear el Servicio
 
 `superset@host:~> cd /etc/systemd/system/`
 `superset@host:/etc/systemd/system> sudo touch gunicorn.service`
@@ -43,10 +41,10 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target
 ```
-### Reload de los daemons
+### Reload
 `systemctl daemon-reload`
 
-### Iniciar gunicorn service
+### Iniciar
 `systemctl start gunicorn.service`
 
 ```
@@ -58,11 +56,11 @@ Password:
 ==== AUTHENTICATION COMPLETE ====
 ```
 
-## Comprobar los servicios
+## Comprobar servicio
 
 systemctl status gunicorn.service
 
-## systemD 
+# systemD 
 
 Veamos cómo administrar los servicios en una distribución de Linux con SystemD:
 
