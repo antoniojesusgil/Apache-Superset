@@ -11,33 +11,33 @@ Tan solo puede estar un método activo, por tanto se debe parar e iniciar la apl
 
 ## LDAP
 
-#### Costaisa
+#### t2client
 
 ```python
 # -----------------------------------------------------
-# CONFIG COSTAISA LDAP
+# CONFIG t2client LDAP
 # -----------------------------------------------------
 AUTH_TYPE = AUTH_LDAP
 AUTH_LDAP_SERVER = "ldap://130.10.90.40"
 AUTH_LDAP_USE_TLS = False
-AUTH_LDAP_SEARCH = "dc=costaisa,dc=org"
-AUTH_LDAP_APPEND_DOMAIN = 'costaisa.org'
+AUTH_LDAP_SEARCH = "dc=t2client,dc=org"
+AUTH_LDAP_APPEND_DOMAIN = 't2client.org'
 AUTH_LDAP_UID_FIELD = 'userPrincipalName'
 AUTH_LDAP_FIRSTNAME_FIELD = 'givenName'
 AUTH_LDAP_LASTNAME_FIELD = 'sn'
 AUTH_LDAP_ALLOW_SELF_SIGNED = True
 ```
 
-#### Asepeyo
+#### t2client
 
 ```python
 # ----------------------------------------------------
-# CONFIG ASEPEYO LDAP
+# CONFIG t2client LDAP
 # ----------------------------------------------------
 AUTH_TYPE = AUTH_LDAP
-AUTH_LDAP_SERVER = "ldap://asepeyo.site"
+AUTH_LDAP_SERVER = "ldap://t2client.site"
 AUTH_LDAP_USE_TLS = False
-AUTH_LDAP_SEARCH = "OU=People,OU=MUTUA,DC=asepeyo,DC=site"
-AUTH_LDAP_APPEND_DOMAIN = "asepeyo.site"
+AUTH_LDAP_SEARCH = "OU=People,OU=MUTUA,DC=t2client,DC=site"
+AUTH_LDAP_APPEND_DOMAIN = "t2client.site"
 AUTH_LDAP_UID_FIELD = "userPrincipalName"
 ```

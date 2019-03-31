@@ -1,15 +1,10 @@
 # Superset
 Procedimiento para poner en marcha Superset
 
-
 ## Acciones de Sistema Operativo
 
 ### Crear usuario
-Utilizaremos la herramienta YAST Control Center.
-Como alternativas puede crearse el usuario a mano y ser añadido a sudoers (visudo)
-
-![yast_add_user](/uploads/2c66bb3a26e92f990e16dfbd100c039a/yast_add_user.PNG)
-![yast_superset_2](/uploads/0b052f85db7b17fb10ac9d2ada862118/yast_superset_2.PNG)
+Crear un usuario de sistema que pertenezca a sudoers (visudo)
 
 ### Librerias y dependencias de SSOO (sles 15)
 
@@ -126,7 +121,6 @@ pip3 install click==6.7
 pip3 install colorama==0.3.9
 ```
 
-
 ### Configuración básica
 
 #### Superset db
@@ -152,10 +146,10 @@ SQLALCHEMY_DATABASE_URI = 'mysql://superser:xxx@localhost/superset'
 El sistema se apoya en Flask y en el framework Flask-Appbuilder
 ```
  fabmanager create-admin --app superset
-Username [admin]: asepeyo
-User first name [admin]: asepeyo
+Username [admin]: t2client
+User first name [admin]: t2client
 User last name [user]: admin-local
-Email [admin@fab.org]: asepeyo-local@asepeyo.site
+Email [admin@fab.org]: t2client-local@t2client.site
 Password:
 Repeat for confirmation:
 ```
@@ -199,15 +193,15 @@ Recordar el usuario y contraseña, los necesitaremos para acceder a la aplicaci�
 
 ```
  fabmanager create-admin --app superset
-Username [admin]: asepeyo
-User first name [admin]: asepeyo
-User last name [user]: asepeyo-local
-Email [admin@fab.org]: admin-asepeyo@asepeyo.site
+Username [admin]: t2client
+User first name [admin]: t2client
+User last name [user]: local
+Email [admin@fab.org]: t2client@t2client.com
 Password:
 ```
 ```bash
 Recognized Database Authentications.
-Admin User asepeyo created.
+Admin User t2client created.
 ```
 
 Inicializar la base de datos

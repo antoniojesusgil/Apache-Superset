@@ -17,8 +17,8 @@ Componentes:
 
 ## Superset 
 
-[Versión inicial 0.26.3](http://asidvizint.asepeyo.site/static/assets/version_info.json) 
-[Actualizada a versión 0.27](http://asidvizint.asepeyo.site/static/assets/version_info.json) 
+[Versión inicial 0.26.3](http://asidvizint.t2client.site/static/assets/version_info.json) 
+[Actualizada a versión 0.27](http://asidvizint.t2client.site/static/assets/version_info.json) 
 
 ## Nginx
 
@@ -76,7 +76,7 @@ La función principal de Redis en esta aquitectura es la de disponer un sistema 
 
 ### Instalar redis
 ```sh
-asidvizint:/usr/lib/python3.6 # https_proxy=https://xxx.costaisa.org:9090
+asidvizint:/usr/lib/python3.6 # https_proxy=https://xxx.t2client.org:9090
 asidvizint:/usr/lib/python3.6 # pip install redis
 Collecting redis
   Downloading https://files.pythonhosted.org/packages/3b/f6/7a76333cf0b9251ecf49efff635015171843d9b977e4ffcf59f9c4428052/redis-2.10.6-py2.py3-none-any.whl (64kB)
@@ -124,9 +124,9 @@ superset@asidvizint:~> gunicorn -w 5 --timeout 120 -b 0.0.0.0:8000 superset:app
 ### Comprobar que responden los sistemas
 
 ``` 
-http://http://asidvizint.asepeyo.site/
+http://http://asidvizint.t2client.site/
 ```
-![asidvizint.asepeyo.site](/uploads/99a08bb9d41f03bcbd3123bf68ee1429/asidvizint.asepeyo.site.png)
+![asidvizint.t2client.site](/uploads/99a08bb9d41f03bcbd3123bf68ee1429/asidvizint.t2client.site.png)
 
 
 # Configurar Redis como caché
