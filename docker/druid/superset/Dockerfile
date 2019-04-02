@@ -4,7 +4,7 @@ MAINTAINER ajgil <antoniojesusgil@gmail.com>
 
 # Superset version
 #ARG SUPERSET_VERSION=0.27.0
-ARG SUPERSET_VERSION=0.30
+ARG SUPERSET_VERSION=0.29.0rc7
 
 # Configure environment
 ENV GUNICORN_BIND=0.0.0.0:8088 \
