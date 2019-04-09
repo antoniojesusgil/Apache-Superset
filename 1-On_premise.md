@@ -170,11 +170,13 @@ issue github --> https://github.com/apache/incubator-superset/issues/6770
 Podemos obtar por una de estas soluciones (o ambas):
 
 * Instalar pandas 0.23.4
-* Modificar fichero `superset/dataframe.py` 
+* Modificar fichero `superset/dataframe.py`
 
 ```
 vim /usr/lib/python3.6/site-packages/superset/dataframe.py
 ```
+Una vez en el fichero hemos de encontrar la cadena `_maybe_box*` y sustituirla por `maybe_box*`
+
 Si nos encontramos con el error markdown
 
 `Was unable to import superset Error: markdown() takes 1 positional argument but 2 were given`
@@ -219,6 +221,12 @@ INFO  [alembic.runtime.migration] Context impl MySQLImpl.
 INFO  [alembic.runtime.migration] Will assume transactional DDL.
 INFO  [alembic.runtime.migration] Running upgrade  -> 4e6a06bad7a8, Init
 ```
+**Error**
+```
+sqlalchemy.exc.InvalidRequestError: Can`t determine...
+````
+Desinstalar SQLAlchemy e instalar la versión `1.2`
+
 En este punto podemos cargar el dataset de ejemplos
 
 ```
