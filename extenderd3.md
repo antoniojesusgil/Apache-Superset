@@ -35,3 +35,20 @@ Partimos de la versión oficial 0.27.0 de Superset. La interfaz FrontEnd está c
     "d3-svg-legend": "^1.x",
     "d3-tip": "^0.9.1",
 ```
+### es-ES locale format
+```json
+{
+  "decimal": ",",
+  "thousands": ".",
+  "grouping": [3],
+  "currency": ["", "€"],
+  "dateTime": "%a %b %e %X %Y",
+  "date": "%d/%m/%Y",
+  "time": "%H:%M:%S",
+  "periods": ["AM", "PM"],
+  "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+  "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+  "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+  "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+}
+```
