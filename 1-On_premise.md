@@ -201,7 +201,7 @@ Y repetimos el proceso de creación del usuario **administrador**
 Recordar el usuario y contraseña, los necesitaremos para acceder a la aplicación.
 
 ```
- fabmanager create-admin --app superset
+fabmanager create-admin --app superset
 Username [admin]: t2client
 User first name [admin]: t2client
 User last name [user]: local
