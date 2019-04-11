@@ -1,0 +1,37 @@
+version: '3'
+services:
+  druid:
+    image: druidio/example-cluster
+    container_name: ajgil-druid
+    ports:
+      - 8081:8081
+      - 8082:8082
+  redis:
+    image: redis
+    restart: always
+    volumes:
+      - redis:/data
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: superset
+      MYSQL_DATABASE: superset
+      MYSQL_USER: superset
+      MYSQL_PASSWORD: superset
+    volumes:
+      - mysql:/var/lib/mysql
+  superset:
+    bimage: ajgil/superset:0.29.rc7
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 8080:8080
+      - 8088:8088
+volumes:
+  mysql:
+    external: false
+  redis:
+    external: false
